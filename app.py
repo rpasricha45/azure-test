@@ -5,6 +5,7 @@ from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
 app = Flask(__name__)
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 
 
 @app.route('/')
