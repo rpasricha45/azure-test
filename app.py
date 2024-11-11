@@ -1,9 +1,11 @@
 import os
+import flask_socketio
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
 app = Flask(__name__)
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 
 
 @app.route('/')
@@ -15,6 +17,15 @@ def index():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
+@socketio.on("connect")
+def on_connect():
+    """print on new user connection
+    """
+    print(f"Someone connected... ")
+  
+
 
 @app.route('/hello', methods=['POST'])
 def hello():
